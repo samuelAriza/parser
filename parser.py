@@ -1,6 +1,6 @@
 rules = ["S-aSb", "S-c"]
 nt = ["S"]
-string = "aacbb"
+string = "acb"
 c = 0
 a = string[c]
 flag = True
@@ -13,22 +13,39 @@ def set_parts(N):
             right.append((rules[i].split("-"))[1])
     return right
 
+it = 0
+
+def validation(flag, N):
+    global c
+    global a
+    global it
+
+    parts = set_parts(N)
+    if flag == True:
+        A = parts[it]
+        return A
+    elif flag == False:
+        if it >= len(parts) - 1:
+            c = c - 1
+            a = string[c]
+        else:
+            it = it + 1
+            A = parts[it]
+            return A
+
 def recursive_parser(N):
     global a 
     global c
     global flag
-    it = 0
-
-    parts = set_parts(N)
     
-    if flag == True:
-        A = parts[it]
-    else:
-        it = it + 1
-        A = parts[it]
-        print(A)
+    A = validation(flag, N)
+    print(f'Ahora la regla es {A}')
+    print(f'Let aaaa = {a}')
+    print(f'El {A == None}')
+    if A == None:
+        return "no"
 
-    for i in range(0, len(A) - 1):
+    for i in range(0, len(A)):
         print(f'Iteracion {i}')
         if A[i] in nt:
             print("Es un no terminal")
@@ -38,14 +55,20 @@ def recursive_parser(N):
             print("Coincide:")
             print(f'let a = {a}')
             c = c + 1
-            a = string[c]
+            try:
+                a = string[c]
+            except:
+                return "yes"
             print(f'Nuevo {a}')
             flag = True
         else:
             print("No es la regla de produccion")
             flag = False
+            recursive_parser(N)
+            break
 
-recursive_parser("S")
-
-
-
+x = recursive_parser("S")
+if x == "yes":
+    print("yes")
+elif x == None:
+    print("no")
