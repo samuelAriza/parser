@@ -1,61 +1,109 @@
-rules = ["S-aSb","S-c"]
-nt = ["S"]
-string = "a$"
-c = 0
-a = string[0]
-flag = False
-devolver = False
-k = 0
+rules = ["S-a", "S-Sa"]
+nt = ["S", "A"]
 
-def productions(N):
-    productions = []
+string = "aaaa"
+S = string
+count = 0
+back = False
+flag = False
+recursion_num = 0
+is_remaining = 0
+remaining = False
+
+
+def parts_of(N):
+    parts = []
     for i in range(0, len(rules)):
         if rules[i][0] == N:
-            productions.append((rules[i].split("-"))[1])
-    return productions
+            parts.append((rules[i].split("-"))[1])
+    return parts
 
 def recursive_parser(N):
-    global c
-    global string
-    global a 
-    global k 
-    flag = False
-    global devolver
-    listo = False
+    global recursion_num
+    global flag
+    global count
+    global back
+    global S
+    global is_remaining
+    remaining = False
 
-    parts = productions(N)
+
+    parts = parts_of(N)
     for i in range(0, len(parts)):
-        print(f'Estoy en la iteracion {i}')
-        A = parts[i]
-        print(f'La produccion es {A}')
-        for j in range(0, len(A)):
-            print(A[j])
-            if A[j] in nt:
-                print(f'{A[j]} es un no terminal')
-                recursive_parser(A[j])
-            elif A[j] == a:
-                print(f'{A[j]} es igual let a = {a} ')
-                c = c + 1
-                a = string[c]
-                k = k + 1
-                flag = True
-                if j == len(A) - 1:
-                    print("piki")
-                    listo = True
-                    break
-            else:
-                print(f'{A[j]} no era la regla de produccion')
-                if devolver == True:
-                    print("Hice un break")
-                    devolver = False
-                break
-        if listo == True:
+
+        if flag == True:
             break
-    if flag == False and devolver == False:
-        print("Hola")
-        c = c - 1
-        a = string[c]
-        k = k - 1
-        devolver = True
+
+        print("-------")
+        print(S)
+        print(f'Regla {i}')
+        A = parts[i]
+        print(A)
+        for j in range(0, len(A)):
+            print("JAS")
+            print(remaining)
+
+            if remaining == True and back == True and is_remaining != 0 or is_remaining != 0 and flag == True and remaining == True and back == False:
+                is_remaining = is_remaining - 1
+                print(f'Actualizado {is_remaining}')
+            
+            if (A[j] in nt):
+                print(f'{A[j]} es un no terminal')
+                flag = False
+                back = False
+                recursion_num = recursion_num + 1
+                if len(A) - 1 > j:
+                    is_remaining = is_remaining + 1
+                    remaining = True
+                    print(f'Queda en {is_remaining}')
+                recursive_parser(A[j])
+            elif (A[j] == S[0]):
+                print("JUIKI")
+                print(f'{S[0]} = {A[j]}')
+                count = count + 1
+                S = string[count:len(string)]
+                flag = True  
+                print(len(A) - 1)
+                print(j) 
+                print(is_remaining)
+                print(S)
+                if len(A) - 1 == j and is_remaining != len(S) and len(S) != 0:
+                    print("LOLO")
+                    count = count - 1
+                    S = string[count:len(string)]
+                    print(f'{A} no era la regla de produccion')
+                    flag = False
+                    if back == True:
+                        print("break")
+                        back = False
+                    break  
+            else:
+                print(f'{A} no era la regla de produccion')
+
+                if flag == True:
+                    count = count - 1
+                    S = string[count:len(string)]
+
+                flag = False
+
+                if back == True:
+                    print("break")
+                    back = False
+                break
+
+    if flag == False and back == False:
+        print("lala")
+        print(remaining)
+        count = count - 1
+        S = string[count:len(string)]
+        back = True
     
+    print(flag)
+    print(remaining)
+    print(back)
+    if flag == True and remaining == True and back == False:
+        is_remaining = is_remaining - 1       
+
 recursive_parser("S")
+print("---")
+print(flag)
