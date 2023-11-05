@@ -1,6 +1,6 @@
 rules = ["S-AB", "A-a", "A-aA", "B-b", "B-bB"]
 nt = ["S", "A", "B"]
-
+aaaa
 string = "aabb"
 S = string
 count = 0
