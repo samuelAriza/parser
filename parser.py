@@ -1,7 +1,7 @@
-rules = ["S-a", "S-Sa"]
-nt = ["S", "A"]
+rules = ["S-AB", "A-a", "A-aA", "B-b", "B-bB"]
+nt = ["S", "A", "B"]
 
-string = "aaaa"
+string = "aabb"
 S = string
 count = 0
 back = False
@@ -101,8 +101,7 @@ def recursive_parser(N):
     print(flag)
     print(remaining)
     print(back)
-    if flag == True and remaining == True and back == False:
-        is_remaining = is_remaining - 1       
+
 
 recursive_parser("S")
 print("---")
