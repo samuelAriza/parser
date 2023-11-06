@@ -1,7 +1,9 @@
-rules = ["S-AB", "A-a", "A-aA", "B-b", "B-bB"]
+import re
+
+rules = ["S-AB", "A-aA", "A-a", "B-bB", "B-b"]
 nt = ["S", "A", "B"]
-aaaa
-string = "aabb"
+
+string = "aab"
 S = string
 count = 0
 back = False
@@ -9,7 +11,7 @@ flag = False
 recursion_num = 0
 is_remaining = 0
 remaining = False
-
+bandera = False
 
 def parts_of(N):
     parts = []
@@ -25,6 +27,7 @@ def recursive_parser(N):
     global back
     global S
     global is_remaining
+    global bandera
     remaining = False
 
 
@@ -51,11 +54,21 @@ def recursive_parser(N):
                 print(f'{A[j]} es un no terminal')
                 flag = False
                 back = False
-                recursion_num = recursion_num + 1
+                
+                temporal = A[j + 1:len(A)]
+
                 if len(A) - 1 > j:
-                    is_remaining = is_remaining + 1
+                    non_terminals = len(re.sub('[^A-Z]', '', temporal))
+                    if non_terminals > 0:
+                        is_remaining = is_remaining + non_terminals
+                        bandera = True
+                        print("ENTREEE")
+
+                    is_remaining = is_remaining + len(re.sub('[^a-z]', '', temporal))
                     remaining = True
                     print(f'Queda en {is_remaining}')
+
+
                 recursive_parser(A[j])
             elif (A[j] == S[0]):
                 print("JUIKI")
@@ -67,7 +80,7 @@ def recursive_parser(N):
                 print(j) 
                 print(is_remaining)
                 print(S)
-                if len(A) - 1 == j and is_remaining != len(S) and len(S) != 0:
+                if len(A) - 1 == j and is_remaining != len(S) and len(S) != 0 and bandera == False:
                     print("LOLO")
                     count = count - 1
                     S = string[count:len(string)]
