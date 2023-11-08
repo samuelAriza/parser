@@ -3,7 +3,7 @@ import re
 rules = ["S-aSb", "S-A", "A-aA", "A-a"]
 nt = ["S", "A", "B"]
 
-string = "aaaabba"
+string = "aaaaabbb"
 S = string
 count = 0
 back = False
@@ -12,6 +12,7 @@ recursion_num = 0
 is_remaining = 0
 remaining = False
 bandera = False
+aceptancia = False
 
 def parts_of(N):
     parts = []
@@ -28,6 +29,7 @@ def recursive_parser(N):
     global S
     global is_remaining
     global bandera
+    global aceptancia
     remaining = False
 
 
@@ -67,12 +69,13 @@ def recursive_parser(N):
                         bandera = True
                         print("ENTREEE")
 
-                    is_remaining = is_remaining + len(re.sub('[^a-z]', '', temporal))
+                    is_remaining = is_remaining + (len(re.sub('[^a-z]', '', temporal)))
                     remaining = True
                     print(f'Queda en {is_remaining}')
 
 
                 recursive_parser(A[j])
+            
             elif (A[j] == S[0]):
                 print("JUIKI")
                 print(f'{S[0]} = {A[j]}')
@@ -85,6 +88,11 @@ def recursive_parser(N):
                 print(len(S))
                 print(bandera)
                 print(f'Pero bueno {S}')
+                if len(S) == 0:
+                    S = S+"$"
+                    continue
+                else:
+                    continue 
                 if len(A) - 1 == j and is_remaining != len(S) and len(S) != 0 and bandera == False:
                     print("LOLO")
                     count = count - 1
@@ -108,6 +116,7 @@ def recursive_parser(N):
                     print("break")
                     back = False
                 break
+
         print("El pepe")
 
     if flag == False and back == False:
@@ -124,8 +133,30 @@ def recursive_parser(N):
     print(is_remaining)
     print("---")
 
-recursive_parser("S")
-if flag == True and len(S) == 0:
+x = recursive_parser("S")
+print(S)
+if flag == True and len(S) == 0 or S[0] == "$":
     print("yes")
 else:
-    print("no")  
+    print("no") 
+
+def main():
+    count = 0
+    back = False
+    flag = False
+    recursion_num = 0
+    is_remaining = 0
+    remaining = False
+    bandera = False
+    for i in range(0, len(strings)):
+        recursive_parser("S")
+        #hago la comprobacion de si la acepta o no
+        count = 0
+        back = False
+        flag = False
+        recursion_num = 0
+        is_remaining = 0
+        remaining = False
+        bandera = False
+
+
