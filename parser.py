@@ -1,9 +1,9 @@
 import re
 
-rules = ["S-AB", "A-aA", "A-a", "B-bB", "B-b"]
+rules = ["S-aSb", "S-A", "A-aA", "A-a"]
 nt = ["S", "A", "B"]
 
-string = "aab"
+string = "aaaabba"
 S = string
 count = 0
 back = False
@@ -32,9 +32,12 @@ def recursive_parser(N):
 
 
     parts = parts_of(N)
+
+
     for i in range(0, len(parts)):
 
         if flag == True:
+            print("Hola")
             break
 
         print("-------")
@@ -79,7 +82,9 @@ def recursive_parser(N):
                 print(len(A) - 1)
                 print(j) 
                 print(is_remaining)
-                print(S)
+                print(len(S))
+                print(bandera)
+                print(f'Pero bueno {S}')
                 if len(A) - 1 == j and is_remaining != len(S) and len(S) != 0 and bandera == False:
                     print("LOLO")
                     count = count - 1
@@ -103,6 +108,7 @@ def recursive_parser(N):
                     print("break")
                     back = False
                 break
+        print("El pepe")
 
     if flag == False and back == False:
         print("lala")
@@ -111,11 +117,15 @@ def recursive_parser(N):
         S = string[count:len(string)]
         back = True
     
+    print("---")
     print(flag)
     print(remaining)
     print(back)
-
+    print(is_remaining)
+    print("---")
 
 recursive_parser("S")
-print("---")
-print(flag)
+if flag == True and len(S) == 0:
+    print("yes")
+else:
+    print("no")  
