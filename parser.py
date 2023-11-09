@@ -1,9 +1,9 @@
 import re
 
-rules = ["S-aSb", "S-A", "A-aA", "A-a"]
+rules = ["S-AB", "A-aA", "A-a", "B-bB", "B-b"]
 nt = ["S", "A", "B"]
 
-string = "aaaaabbb"
+string = "aaaaab"
 S = string
 count = 0
 back = False
@@ -22,6 +22,7 @@ def parts_of(N):
     return parts
 
 def recursive_parser(N):
+    global string
     global recursion_num
     global flag
     global count
@@ -75,7 +76,7 @@ def recursive_parser(N):
 
 
                 recursive_parser(A[j])
-            
+
             elif (A[j] == S[0]):
                 print("JUIKI")
                 print(f'{S[0]} = {A[j]}')
@@ -88,11 +89,17 @@ def recursive_parser(N):
                 print(len(S))
                 print(bandera)
                 print(f'Pero bueno {S}')
-                if len(S) == 0:
-                    S = S+"$"
-                    continue
-                else:
-                    continue 
+                if len(A) - 1 == j and is_remaining != len(S) and len(S) != 0 and bandera == False:
+                    print("LOLO")
+                    count = count - 1
+                    S = string[count:len(string)]
+                    print(f'{A} no era la regla de produccion')
+                    flag = False
+                    if back == True:
+                        print("break")
+                        back = False
+                    break
+
                 if len(A) - 1 == j and is_remaining != len(S) and len(S) != 0 and bandera == False:
                     print("LOLO")
                     count = count - 1
@@ -133,14 +140,13 @@ def recursive_parser(N):
     print(is_remaining)
     print("---")
 
-x = recursive_parser("S")
-print(S)
-if flag == True and len(S) == 0 or S[0] == "$":
-    print("yes")
-else:
-    print("no") 
-
-def main():
+respuestas = []
+try:
+    print("SSS")
+    recursive_parser("S")
+except:
+    string = string + "$"
+    S = string
     count = 0
     back = False
     flag = False
@@ -148,15 +154,12 @@ def main():
     is_remaining = 0
     remaining = False
     bandera = False
-    for i in range(0, len(strings)):
-        recursive_parser("S")
-        #hago la comprobacion de si la acepta o no
-        count = 0
-        back = False
-        flag = False
-        recursion_num = 0
-        is_remaining = 0
-        remaining = False
-        bandera = False
+    aceptancia = False
+    recursive_parser("S")
 
+if flag == True and len(S) == 0 or S[0] == "$":
+    respuestas.append("yes")
+else:
+    respuestas.append("no") 
 
+print(respuestas)
