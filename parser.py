@@ -3,7 +3,7 @@ import re
 rules = ["S-AB", "A-aA", "A-a", "B-bB", "B-b"]
 nt = ["S", "A", "B"]
 
-string = "aaaaab"
+string = "aab"
 S = string
 count = 0
 back = False
@@ -98,18 +98,7 @@ def recursive_parser(N):
                     if back == True:
                         print("break")
                         back = False
-                    break
-
-                if len(A) - 1 == j and is_remaining != len(S) and len(S) != 0 and bandera == False:
-                    print("LOLO")
-                    count = count - 1
-                    S = string[count:len(string)]
-                    print(f'{A} no era la regla de produccion')
-                    flag = False
-                    if back == True:
-                        print("break")
-                        back = False
-                    break  
+                    break 
             else:
                 print(f'{A} no era la regla de produccion')
 
@@ -141,6 +130,7 @@ def recursive_parser(N):
     print("---")
 
 respuestas = []
+
 try:
     print("SSS")
     recursive_parser("S")

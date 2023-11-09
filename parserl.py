@@ -1,18 +1,9 @@
 import re
 
-'''
 n, m, k = map(int, input().split())
 nt = input().split()
 rules = [input() for _ in range(m)]
 strings = [input() for _ in range(k)]
-'''
-rules = ["S-AB", "A-aA", "A-a", "B-bB", "B-b"]
-nt = ["S", "A", "B"]
-strings = ["aab", "aaabb", "aaaabbbb"]
-
-print(nt)
-print(rules)
-print(strings)
 
 def parts_of(N):
     parts = []
@@ -52,14 +43,10 @@ def recursive_parser(N):
     for i in range(0, len(parts)):
 
         if flag == True:
-            print("Hola")
             break
 
-        print("-------")
-        print(S)
-        print(f'Regla {i}')
         A = parts[i]
-        print(A)
+        
         for j in range(0, len(A)):
             print("JAS")
             print(remaining)
@@ -159,6 +146,7 @@ for i in range(0, len(strings)):
     except:
         string = strings[i] + "$"
         S = string
+        print(S)
         count = 0
         back = False
         flag = False
@@ -167,6 +155,7 @@ for i in range(0, len(strings)):
         remaining = False
         bandera = False
         aceptancia = False
+        recursive_parser("S")
 
     if flag == True and len(S) == 0 or S[0] == "$":
         respuestas.append("yes")
