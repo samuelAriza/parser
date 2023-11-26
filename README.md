@@ -17,7 +17,7 @@ input string.
     7: 			else if xi = a then
     8: 				advance to the next input symbol
     9: 			else
-    10: 			ERROR
+    10: 				ERROR
 
 
 ------------
